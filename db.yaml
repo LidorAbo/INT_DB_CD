@@ -16,19 +16,8 @@ spec:
       - name: intdb
         image: lidorabo/docker_repo:int_db
         ports:
-        - containerPort: 27017
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app: intdb-app
-  name: intdb-svc
-  namespace: default
-spec:
-  type: NodePort    # use LoadBalancer as type here
-  ports:
-    - port: 27017
-      nodePort: 30001
-  selector:
-    app: intdb-app
+        - containerPort: 201
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 27017
